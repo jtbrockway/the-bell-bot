@@ -1,0 +1,17 @@
+{
+  "name": "the-bell-bot",
+  "version": "1.0.0",
+  "description": "Discord bot for The-bell react app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run start"
+  },
+  "author": "Jack Brockway",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "eslint": "^7.21.0",
+    "nodemon": "^2.0.7"
+  }
+}
