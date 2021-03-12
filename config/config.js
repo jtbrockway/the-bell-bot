@@ -1,5 +1,5 @@
 const config = {
-  bellSite: "http://localhost:3000",
+  bellSite: process.env.SITE_NAME,
   botToken: process.env.BOT_TOKEN,
   port: process.env.PORT
 }
