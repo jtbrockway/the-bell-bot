@@ -35,7 +35,7 @@ const reactionEdit = (reaction, user, type, messages) => {
   
   if(type === 'add') {
     const replaceIndex = field.indexOf('---------');
-    if(replaceIndex !== -1) {
+    if(replaceIndex !== -1 && !field.contains(user.username)) {
       field[replaceIndex] = user.username;
     } 
   } else {
