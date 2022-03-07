@@ -1,40 +1,55 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const Discord = require('discord.js');
-const config = require('../config/config');
-const {getRoutes} = require('./router.js');
-const discordCommands = require('./DiscordBot/commands.js');
+import config from '../config/config.js';
+import { Client, Collection, Intents } from 'discord.js';
+import fs from 'fs';
 
-//Declarations
-const app = express();
-const client = new Discord.Client();
-const messages = new Set();
+import { handleSelect, handleJoin, handleLeave } from './commands/ring.js';
 
-//Express Setup
-app.use(cors());
-app.use(express.json());
-app.use('/', getRoutes(client, messages));
-app.listen(config.port);
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-//Discord Bot setup
+//Register commands
+client.commands = new Collection();
+const commandFiles = fs
+  .readdirSync('./src/commands')
+  .filter((file) => file.endsWith('.js'));
+for (const file of commandFiles) {
+  const { default: command } = await import(`./commands/${file}`);
+  client.commands.set(command.data.name, command);
+}
+
 client.once('ready', () => {
   console.log('Ready!');
+});
 
-  client.user.setPresence({
-    status: "online",
-    activity: {
-      name: config.bellSite
+client.on('interactionCreate', async (interaction) => {
+  if (interaction.isSelectMenu()) {
+    switch (interaction.customId) {
+      case 'game_select':
+        handleSelect(interaction);
     }
-  });
+  } else if (interaction.isButton()) {
+    switch (interaction.customId) {
+      case 'join_button':
+        handleJoin(interaction);
+        break;
+      case 'leave_button':
+        handleLeave(interaction);
+        break;
+    }
+  } else {
+    const command = client.commands.get(interaction.commandName);
+
+    if (!command) return;
+
+    try {
+      await command.execute(interaction);
+    } catch (error) {
+      console.error(error);
+      await interaction.reply({
+        content: 'There was an error while executing this command!',
+        ephemeral: true
+      });
+    }
+  }
 });
+
 client.login(config.botToken);
-
-//Discord Client functions
-client.on('messageReactionAdd', (reaction, user) => {
-  discordCommands.reactionEdit(reaction, user, 'add', messages);
-});
-
-client.on('messageReactionRemove', (reaction, user) => {
-  discordCommands.reactionEdit(reaction, user, 'remove', messages);
-});

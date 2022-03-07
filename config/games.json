@@ -1,0 +1,18 @@
+[
+  {
+    "label": "Rainbow Six: Siege",
+    "value": "r6",
+    "meta": {
+      "groupSize": "5",
+      "image": "https://attackofthefanboy.com/wp-content/uploads/2021/01/rainbow-six-siege.jpg"
+    }
+  },
+  {
+    "label": "Hunt: Showdown",
+    "value": "Hunt: Showdown",
+    "meta": {
+      "groupSize": 3,
+      "image": "https://i.ytimg.com/vi/bvO5eYxbWxM/maxresdefault.jpg"
+    }
+  }
+]

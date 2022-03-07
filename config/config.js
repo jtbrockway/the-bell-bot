@@ -1,7 +1,10 @@
 const config = {
-  bellSite: process.env.SITE_NAME,
   botToken: process.env.BOT_TOKEN,
-  port: process.env.PORT
-}
+  clientId: process.env.CLIENT_ID,
+  coreId: '<@&408875003619180544>',
+};
 
-module.exports = config;
+config.botToken = 'OTQ5NzY3MzIzNjMwMzI1ODgx.YiPJvw.rncx2ulDnZ2mZ2oTX0BsQOIOhIg';
+config.clientId = '949767323630325881';
+
+export default config;
