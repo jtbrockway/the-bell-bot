@@ -26,7 +26,7 @@ const handlePlayerUpdate = (interaction) => {
   let playersString = players.join('\n');
   let i = groupSize - players.length;
   while (i > 0) {
-    playersString += '---------\n';
+    playersString += '\n---------\n';
     i--;
   }
 
