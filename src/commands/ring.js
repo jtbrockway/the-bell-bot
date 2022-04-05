@@ -78,6 +78,8 @@ export const handleLeave = (interaction) => {
 };
 
 export const handleSelect = async (interaction) => {
+  await interaction.deferReply({ ephemeral: true });
+
   players = [];
 
   const game = gamesConfig.filter((item) => {
@@ -114,7 +116,7 @@ export const handleSelect = async (interaction) => {
     }
   };
 
-  await interaction.update({
+  await interaction.editReply({
     content: 'You may dismiss this message now',
     components: []
   });
