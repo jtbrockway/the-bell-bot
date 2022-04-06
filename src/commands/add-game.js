@@ -3,8 +3,8 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import fs from 'fs';
 const gamesConfig = JSON.parse(fs.readFileSync('./config/games.json'));
 
-const handleAddGame = (interaction) => {
-  await interaction.deferReply({ ephemeral: true })
+const handleAddGame = async (interaction) => {
+  await interaction.deferReply({ ephemeral: true });
 
   const game = interaction.options.getString('game');
   const groupSize = interaction.options.getInteger('groupsize');
