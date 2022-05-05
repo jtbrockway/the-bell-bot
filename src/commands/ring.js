@@ -3,7 +3,6 @@ import { MessageActionRow, MessageSelectMenu, MessageButton } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 
 import fs from 'fs';
-const gamesConfig = JSON.parse(fs.readFileSync('./config/games.json'));
 
 let players = [];
 let groupSize;
@@ -128,6 +127,8 @@ export const handleSelect = async (interaction) => {
 };
 
 const handleRing = (interaction) => {
+  const gamesConfig = JSON.parse(fs.readFileSync('./config/games.json'));
+
   const gamesSelect = new MessageActionRow().addComponents(
     new MessageSelectMenu()
       .setCustomId('game_select')
