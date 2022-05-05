@@ -1,11 +1,10 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-
 import fs from 'fs';
-const gamesConfig = JSON.parse(fs.readFileSync('./config/games.json'));
 
 const handleAddGame = async (interaction) => {
   await interaction.deferReply({ ephemeral: true });
 
+  const gamesConfig = JSON.parse(fs.readFileSync('./config/games.json'));
   const game = interaction.options.getString('game');
   const groupSize = interaction.options.getInteger('groupsize');
   const image = interaction.options.getString('image');
@@ -20,6 +19,7 @@ const handleAddGame = async (interaction) => {
   });
 
   fs.writeFileSync('./config/games.json', JSON.stringify(gamesConfig));
+  console.log(`GAME ADDED ${gamesConfig}`);
   return interaction.editReply({
     content: 'You have successfully added a game',
     ephemeral: true

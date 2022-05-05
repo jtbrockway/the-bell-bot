@@ -79,6 +79,8 @@ export const handleLeave = (interaction) => {
 export const handleSelect = async (interaction) => {
   await interaction.deferReply({ ephemeral: true });
 
+  const gamesConfig = JSON.parse(fs.readFileSync('./config/games.json'));
+
   players = [];
 
   const game = gamesConfig.filter((item) => {
